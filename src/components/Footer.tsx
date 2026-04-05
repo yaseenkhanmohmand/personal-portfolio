@@ -22,7 +22,7 @@ const socialLinks = [
   },
   {
     label: "LinkedIn",
-    href: "https://linkedin.com/in/yaseenmohmand",
+    href: "https://www.linkedin.com/in/yaseenkm/",
     icon: (
       <svg
         className="h-5 w-5"
@@ -55,14 +55,14 @@ const socialLinks = [
    ────────────────────────────────────────────── */
 export default function Footer() {
   return (
-    <footer className="border-t border-white/5">
-      <div className="max-w-7xl mx-auto px-4 py-8 flex flex-col sm:flex-row items-center justify-between gap-4">
-        {/* ── Copyright ── */}
-        <p className="text-zinc-500 text-sm">
-          &copy; 2025 Yaseen Mohmand. All rights reserved.
+    <footer className="border-t border-[#e5e5e5]">
+      <div className="max-w-7xl mx-auto px-6 py-8 flex flex-col sm:flex-row items-center justify-between gap-4">
+        {/* Copyright */}
+        <p className="text-[#888] text-sm">
+          &copy; {new Date().getFullYear()} Yaseen Mohmand. All rights reserved.
         </p>
 
-        {/* ── Social Links ── */}
+        {/* Social Links */}
         <div className="flex items-center gap-4">
           {socialLinks.map((link) => (
             <a
@@ -71,7 +71,7 @@ export default function Footer() {
               target="_blank"
               rel="noopener noreferrer"
               aria-label={link.label}
-              className="text-zinc-500 transition-colors duration-200 hover:text-white"
+              className="text-[#888] transition-colors duration-200 hover:text-[#1a1a1a]"
             >
               {link.icon}
             </a>

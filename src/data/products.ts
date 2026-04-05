@@ -12,11 +12,11 @@ export interface Product {
 }
 
 export const categories: { label: string; value: Category }[] = [
-  { label: "All Projects", value: "all" },
-  { label: "SaaS Products", value: "saas" },
-  { label: "Client Websites", value: "client" },
-  { label: "Developer Tools", value: "tool" },
-  { label: "Creative / 3D", value: "creative" },
+  { label: "All", value: "all" },
+  { label: "SaaS", value: "saas" },
+  { label: "Client", value: "client" },
+  { label: "Tools", value: "tool" },
+  { label: "Creative", value: "creative" },
 ];
 
 export const products: Product[] = [

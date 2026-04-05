@@ -1,125 +1,68 @@
-"use client";
-
-import { motion } from "framer-motion";
-
 /* ── Data ── */
 const PARAGRAPHS = [
-  "I'm a tech founder and builder who thrives at the intersection of design and engineering. As CEO and CTO, I've launched over 30 digital products — from SaaS platforms to client websites — each solving a real-world problem.",
-  "My approach is simple: ship fast, iterate often, and never compromise on quality. I believe the best products come from deeply understanding both the technology and the people who use it.",
-  "When I'm not coding, I'm exploring new technologies, mentoring aspiring developers, and looking for the next big problem to solve.",
+  "I'm a tech founder helping boring businesses become AI first. With a Masters in Software Engineering (Machine Learning) from Harvard and experience at Facebook, I specialize in AI, data science, and data analytics — turning complex data into products people actually use.",
+  "My work spans building agentic AI systems, computer vision pipelines, and analytics dashboards to SaaS platforms and client websites. I've shipped 30+ products and led AI deployments across healthcare, business intelligence, and cloud infrastructure.",
+  "Based in the San Francisco Bay Area, I also consult on data reporting, business analytics, database development, and cloud management — helping organizations make smarter decisions with their data.",
 ] as const;
 
 const TECHNOLOGIES = [
+  "Python",
+  "TensorFlow",
+  "PyTorch",
+  "Computer Vision",
+  "LLMs / NLP",
+  "Data Analytics",
+  "Pandas / NumPy",
+  "PostgreSQL",
+  "AWS",
   "Next.js",
   "React",
   "TypeScript",
-  "Tailwind CSS",
   "Node.js",
-  "Python",
-  "Three.js",
+  "Tailwind CSS",
   "Vercel",
-  "PostgreSQL",
-  "AI/ML",
-  "Figma",
   "Git",
 ] as const;
-
-/* ── Animation variants ── */
-const containerLeft = {
-  hidden: {},
-  visible: {
-    transition: { staggerChildren: 0.15 },
-  },
-};
-
-const fadeInLeft = {
-  hidden: { opacity: 0, x: -30 },
-  visible: {
-    opacity: 1,
-    x: 0,
-    transition: { duration: 0.5, ease: "easeOut" as const },
-  },
-};
-
-const containerRight = {
-  hidden: {},
-  visible: {
-    transition: { staggerChildren: 0.07, delayChildren: 0.2 },
-  },
-};
-
-const fadeInRight = {
-  hidden: { opacity: 0, x: 30 },
-  visible: {
-    opacity: 1,
-    x: 0,
-    transition: { duration: 0.4, ease: "easeOut" as const },
-  },
-};
 
 /* ── Component ── */
 export default function About() {
   return (
-    <section id="about" className="py-24 px-4">
-      <div className="max-w-6xl mx-auto grid grid-cols-1 lg:grid-cols-2 gap-16">
+    <section id="about" className="py-24 px-6 border-t border-[#e5e5e5]">
+      <div className="max-w-7xl mx-auto grid grid-cols-1 lg:grid-cols-2 gap-16">
         {/* Left column — text */}
-        <motion.div
-          variants={containerLeft}
-          initial="hidden"
-          whileInView="visible"
-          viewport={{ once: true, margin: "-80px" }}
-        >
-          <motion.h2
-            variants={fadeInLeft}
-            className="text-4xl font-bold tracking-tight text-white sm:text-5xl"
-          >
+        <div>
+          <h2 className="text-4xl font-bold tracking-tight text-[#1a1a1a] sm:text-5xl">
             About Me
-          </motion.h2>
+          </h2>
 
           <div className="mt-8 space-y-5">
             {PARAGRAPHS.map((text, i) => (
-              <motion.p
+              <p
                 key={i}
-                variants={fadeInLeft}
-                className="text-lg leading-relaxed text-zinc-300 sm:text-zinc-400"
+                className="text-lg leading-relaxed text-[#666]"
               >
                 {text}
-              </motion.p>
+              </p>
             ))}
           </div>
-        </motion.div>
+        </div>
 
         {/* Right column — tech stack */}
         <div>
-          <motion.h3
-            initial={{ opacity: 0, x: 30 }}
-            whileInView={{ opacity: 1, x: 0 }}
-            viewport={{ once: true, margin: "-80px" }}
-            transition={{ duration: 0.5, ease: "easeOut" as const }}
-            className="text-2xl font-semibold tracking-tight text-white"
-          >
+          <h3 className="text-2xl font-semibold tracking-tight text-[#1a1a1a]">
             Tech Stack
-          </motion.h3>
+          </h3>
 
-          <motion.div
-            variants={containerRight}
-            initial="hidden"
-            whileInView="visible"
-            viewport={{ once: true, margin: "-80px" }}
-            className="mt-8 grid grid-cols-3 gap-3"
-          >
+          <div className="mt-8 grid grid-cols-2 sm:grid-cols-4 gap-3">
             {TECHNOLOGIES.map((tech) => (
-              <motion.div
+              <div
                 key={tech}
-                variants={fadeInRight}
-                whileHover={{ scale: 1.05, borderColor: "rgba(255,255,255,0.25)" }}
-                transition={{ duration: 0.2 }}
-                className="bg-white/5 border border-white/10 rounded-xl p-4 text-center text-sm font-medium text-zinc-300 transition-colors hover:border-white/20"
+                className="border border-[#e5e5e5] rounded-xl p-4 text-center text-sm font-medium text-[#666] transition-colors hover:border-[#ccc] hover:text-[#1a1a1a]"
               >
                 {tech}
-              </motion.div>
+              </div>
             ))}
-          </motion.div>
+          </div>
         </div>
       </div>
     </section>
