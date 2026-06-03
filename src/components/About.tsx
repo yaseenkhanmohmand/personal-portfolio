@@ -2,7 +2,7 @@ import Reveal from "./Reveal";
 
 /* ── Data ── */
 const PARAGRAPHS = [
-  "I'm a founder and engineer focused on applied AI. With a Master's in Software Engineering (Machine Learning) from Harvard and experience at Facebook, I specialize in AI, data science, and data analytics.",
+  "I'm a founder, AI consultant, and software engineer focused on applied AI. With a Master's in Software Engineering (Machine Learning) from Harvard and experience at Facebook, I specialize in AI, data science, and data analytics.",
   "My work spans building agentic AI systems, computer vision pipelines, and analytics dashboards to SaaS platforms and client websites. I've shipped 30+ products and led AI deployments across healthcare, business intelligence, and cloud infrastructure.",
   "Based in the San Francisco Bay Area, I also consult on data reporting, business analytics, database development, and cloud management — helping organizations make smarter decisions with their data.",
 ] as const;

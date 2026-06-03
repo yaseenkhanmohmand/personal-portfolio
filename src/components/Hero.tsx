@@ -82,8 +82,9 @@ export default function Hero() {
           variants={reduce ? undefined : fadeVariant}
           className="mt-8 max-w-[46ch] text-base leading-relaxed text-muted sm:text-lg"
         >
-          CEO &amp; CTO with 30+ products shipped. AI, Data Science &amp; Data
-          Analytics. Master&apos;s in Software Engineering (Machine Learning).
+          AI consultant and software engineer — CEO &amp; CTO with 30+ products
+          shipped across AI, data science, and data analytics. Master&apos;s in
+          Software Engineering (Machine Learning).
         </motion.p>
 
         {/* CTAs */}

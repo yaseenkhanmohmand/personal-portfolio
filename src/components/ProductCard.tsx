@@ -1,6 +1,7 @@
 "use client";
 
 import { useState } from "react";
+import Image from "next/image";
 import type { Product } from "@/data/products";
 
 /* ── Category display map ── */
@@ -39,11 +40,12 @@ export default function ProductCard({ product }: ProductCardProps) {
       {/* Screenshot */}
       <div className="relative aspect-[16/10] overflow-hidden rounded-md border border-line bg-surface">
         {!imgError ? (
-          // eslint-disable-next-line @next/next/no-img-element
-          <img
+          <Image
             src={screenshotSrc}
-            alt={`Screenshot of ${product.name}`}
-            className="h-full w-full object-cover object-top transition-transform duration-500 ease-out group-hover:scale-[1.03]"
+            alt={`Screenshot of ${product.name} — ${label} project by Yaseen Khan Mohmand`}
+            fill
+            sizes="(min-width: 1024px) 33vw, (min-width: 640px) 50vw, 100vw"
+            className="object-cover object-top transition-transform duration-500 ease-out group-hover:scale-[1.03]"
             onError={() => setImgError(true)}
           />
         ) : (

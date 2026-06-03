@@ -1,6 +1,7 @@
 "use client";
 
 import { useEffect, useRef, useState } from "react";
+import Image from "next/image";
 import type { Product } from "@/data/products";
 
 /**
@@ -18,12 +19,12 @@ export default function FloatingPreview({ product }: { product: Product | null }
   const [shown, setShown] = useState<Product | null>(null);
   const [imgError, setImgError] = useState(false);
 
-  useEffect(() => {
-    if (product) {
-      setShown(product);
-      setImgError(false);
-    }
-  }, [product]);
+  // Adjust derived state during render (React-recommended over an effect):
+  // when a new product is hovered, show it and clear any prior image error.
+  if (product && product !== shown) {
+    setShown(product);
+    setImgError(false);
+  }
 
   useEffect(() => {
     if (!product) return;
@@ -71,10 +72,12 @@ export default function FloatingPreview({ product }: { product: Product | null }
             <span className="font-display text-xl text-muted">{shown.name}</span>
           </div>
         ) : (
-          // eslint-disable-next-line @next/next/no-img-element
-          <img
+          <Image
             src={`/screenshots/${shown.slug}.png`}
             alt=""
+            width={320}
+            height={200}
+            sizes="320px"
             className="aspect-[16/10] w-full object-cover object-top"
             onError={() => setImgError(true)}
           />

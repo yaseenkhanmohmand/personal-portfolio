@@ -11,9 +11,10 @@
   --color-surface: #fbfaf6; /* cards / hover lifts */
   --color-ink: #16140f; /* text — warm near-black */
 
-  /* Text tiers */
+  /* Text tiers — muted (~5.3:1) and faint (~4.6:1) both clear WCAG AA on the
+     paper/sand surfaces while preserving the faint < muted < ink hierarchy. */
   --color-muted: #6b6457;
-  --color-faint: #9a9384;
+  --color-faint: #736c5b;
 
   /* Hairlines */
   --color-line: #d9d3c6;
@@ -99,6 +100,22 @@ section[id] {
 :focus-visible {
   outline: 2px solid var(--color-amber);
   outline-offset: 2px;
+}
+
+/* ──────────────────────────────────────────────
+   No-JS safety net
+   Scroll-reveal content ships with framer-motion's hidden inline styles
+   (opacity:0 / translate). layout.tsx adds the `js` class before first paint
+   when JavaScript is available, so this rule only applies when JS is off —
+   forcing the full page visible for crawlers and no-JS visitors. JS users keep
+   the editorial reveal animations untouched.
+   ────────────────────────────────────────────── */
+html:not(.js) [style*="opacity:0"],
+html:not(.js) [style*="opacity: 0"] {
+  opacity: 1 !important;
+}
+html:not(.js) [style*="translate"] {
+  transform: none !important;
 }
 
 /* ──────────────────────────────────────────────

@@ -1,5 +1,32 @@
 This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
 
+## SEO
+
+This portfolio is built for best-in-class SEO. **All SEO facts live in one place:
+[`src/lib/site.ts`](src/lib/site.ts)** — title, description, keywords, the Person
+identity (roles, location, social profiles, topics), and brand colours. Edit the
+constants there and the change propagates to every surface below.
+
+| Surface | File | Notes |
+| --- | --- | --- |
+| Page metadata, OG/Twitter tags, viewport | `src/app/layout.tsx` | Reads `site.ts` |
+| JSON-LD `@graph` (Person · WebSite · ProfilePage · ItemList) | `src/lib/seo.ts` → `src/components/JsonLd.tsx` | Cross-linked by `@id` |
+| Social share image (1200×630) | `src/lib/og-image.tsx` → `app/opengraph-image.tsx` + `app/twitter-image.tsx` | Brand fonts, graceful fallback |
+| Favicon / app icons | `app/icon.svg`, `app/apple-icon.tsx`, `app/favicon.ico`, `public/icon-*.png` | Branded "Y" monogram |
+| robots / sitemap / manifest | `app/robots.ts`, `app/sitemap.ts` (incl. image sitemap), `app/manifest.ts` | |
+
+### Canonical URL
+
+The canonical origin resolves automatically (see `resolveSiteUrl()` in `site.ts`):
+
+1. **`NEXT_PUBLIC_SITE_URL`** — set this to your custom domain (e.g. `https://example.com`) to override everything.
+2. **`VERCEL_PROJECT_PRODUCTION_URL`** — provided automatically by Vercel; resolves to the production domain (prefers a custom domain when attached). No action needed on Vercel.
+3. `http://localhost:3000` — local-dev fallback.
+
+So in production on Vercel the canonical/OG/sitemap URLs are correct with zero config; set `NEXT_PUBLIC_SITE_URL` only if you want to pin a specific domain.
+
+When homepage content changes, bump `LAST_UPDATED` in `site.ts` (feeds `<lastmod>` and JSON-LD `dateModified`).
+
 ## Getting Started
 
 First, run the development server:

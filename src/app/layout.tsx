@@ -1,6 +1,17 @@
-import type { Metadata } from "next";
+import type { Metadata, Viewport } from "next";
 import { Fraunces, Inter, IBM_Plex_Mono } from "next/font/google";
 import "./globals.css";
+import {
+  SITE_URL,
+  SITE_NAME,
+  DEFAULT_TITLE,
+  TITLE_TEMPLATE,
+  DESCRIPTION,
+  OG_DESCRIPTION,
+  KEYWORDS,
+  PERSON,
+  BRAND,
+} from "@/lib/site";
 
 /* Display — the "expensive" editorial serif (variable, optical sizing) */
 const fraunces = Fraunces({
@@ -26,22 +37,58 @@ const plexMono = IBM_Plex_Mono({
 });
 
 export const metadata: Metadata = {
-  title: "Yaseen Khan Mohmand | CEO & CTO",
-  description:
-    "Helping boring businesses become AI first. Ex Facebook, Harvard. 30+ products shipped — from SaaS platforms to client websites.",
+  // Resolves every relative metadata URL (canonical, OG image, …) to absolute.
+  metadataBase: new URL(SITE_URL),
+  title: { default: DEFAULT_TITLE, template: TITLE_TEMPLATE },
+  description: DESCRIPTION,
+  applicationName: SITE_NAME,
+  authors: [{ name: SITE_NAME, url: SITE_URL }],
+  creator: SITE_NAME,
+  publisher: SITE_NAME,
+  keywords: [...KEYWORDS],
+  category: "technology",
+  alternates: { canonical: "/" },
   openGraph: {
-    title: "Yaseen Khan Mohmand | CEO & CTO",
-    description:
-      "Helping boring businesses become AI first. Ex Facebook, Harvard. 30+ products shipped.",
     type: "website",
     locale: "en_US",
+    url: SITE_URL,
+    siteName: SITE_NAME,
+    title: DEFAULT_TITLE,
+    description: OG_DESCRIPTION,
+    // og:image is injected automatically by app/opengraph-image.tsx.
   },
   twitter: {
     card: "summary_large_image",
-    title: "Yaseen Khan Mohmand | CEO & CTO",
-    description:
-      "Helping boring businesses become AI first. Ex Facebook, Harvard. 30+ products shipped.",
+    title: DEFAULT_TITLE,
+    description: OG_DESCRIPTION,
+    site: PERSON.twitterHandle,
+    creator: PERSON.twitterHandle,
+    // twitter:image is injected automatically by app/twitter-image.tsx.
   },
+  robots: {
+    index: true,
+    follow: true,
+    googleBot: {
+      index: true,
+      follow: true,
+      "max-image-preview": "large",
+      "max-snippet": -1,
+      "max-video-preview": -1,
+    },
+  },
+  formatDetection: { email: false, address: false, telephone: false },
+  appleWebApp: {
+    capable: true,
+    title: "Yaseen K. Mohmand",
+    statusBarStyle: "default",
+  },
+};
+
+export const viewport: Viewport = {
+  themeColor: BRAND.paper,
+  colorScheme: "light",
+  width: "device-width",
+  initialScale: 1,
 };
 
 export default function RootLayout({
@@ -50,10 +97,20 @@ export default function RootLayout({
   children: React.ReactNode;
 }>) {
   return (
-    <html lang="en" className="scroll-smooth">
+    <html lang="en" className="scroll-smooth" suppressHydrationWarning>
       <body
         className={`${inter.variable} ${fraunces.variable} ${plexMono.variable} font-sans bg-paper text-ink min-h-screen antialiased`}
       >
+        {/* Progressive enhancement: flag that JS is available BEFORE first
+            paint. Without JS the .js class is never added, so the CSS safety
+            net in globals.css forces all scroll-reveal content visible —
+            crawlers and no-JS visitors see the full page, JS users keep the
+            editorial reveal animations. */}
+        <script
+          dangerouslySetInnerHTML={{
+            __html: "document.documentElement.classList.add('js')",
+          }}
+        />
         {/* Editorial grid spine — faint vertical rules framing the content column */}
         <div
           aria-hidden

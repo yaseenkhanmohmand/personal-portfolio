@@ -5,7 +5,7 @@ export default function Contact() {
     <section id="contact" className="relative bg-ink text-paper">
       <div className="mx-auto max-w-6xl px-6 py-28 sm:py-36">
         <Reveal>
-          <p className="font-mono text-xs uppercase tracking-[0.25em] text-faint">
+          <p className="font-mono text-xs uppercase tracking-[0.25em] text-paper/60">
             <span className="text-amber">04</span> — Contact
           </p>
         </Reveal>
@@ -30,7 +30,7 @@ export default function Contact() {
                 ↗
               </span>
             </a>
-            <span className="font-mono text-xs uppercase tracking-[0.18em] text-faint">
+            <span className="font-mono text-xs uppercase tracking-[0.18em] text-paper/60">
               San Francisco Bay Area · Available for select work
             </span>
           </div>

@@ -9,7 +9,13 @@ const suffixFor: Record<string, string> = {
 
 export default function Stats() {
   return (
-    <section className="border-y border-line bg-sand/50">
+    <section
+      aria-labelledby="stats-heading"
+      className="border-y border-line bg-sand/50"
+    >
+      <h2 id="stats-heading" className="sr-only">
+        Track record in numbers
+      </h2>
       <div className="mx-auto grid max-w-6xl grid-cols-2 gap-y-10 px-6 py-16 sm:grid-cols-4 sm:gap-x-6">
         {stats.map((stat, i) => (
           <Reveal key={stat.label} delay={i * 0.08}>

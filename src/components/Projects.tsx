@@ -61,6 +61,7 @@ export default function Projects() {
                   key={value}
                   type="button"
                   onClick={() => setActiveCategory(value)}
+                  aria-pressed={active}
                   className={`relative pt-3 pb-4 font-mono text-xs uppercase tracking-[0.18em] transition-colors ${
                     active ? "text-ink" : "text-muted hover:text-ink"
                   }`}
@@ -86,6 +87,7 @@ export default function Projects() {
             <button
               type="button"
               onClick={() => setView("index")}
+              aria-pressed={view === "index"}
               className={`pt-3 pb-4 transition-colors ${
                 view === "index" ? "text-ink" : "text-muted hover:text-ink"
               }`}
@@ -96,6 +98,7 @@ export default function Projects() {
             <button
               type="button"
               onClick={() => setView("grid")}
+              aria-pressed={view === "grid"}
               className={`pt-3 pb-4 transition-colors ${
                 view === "grid" ? "text-ink" : "text-muted hover:text-ink"
               }`}

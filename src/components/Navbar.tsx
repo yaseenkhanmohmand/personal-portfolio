@@ -52,7 +52,10 @@ export default function Navbar() {
           : "border-b border-transparent bg-transparent"
       }`}
     >
-      <nav className="mx-auto flex h-20 max-w-6xl items-center justify-between px-6">
+      <nav
+        aria-label="Primary"
+        className="mx-auto flex h-20 max-w-6xl items-center justify-between px-6"
+      >
         {/* Logo */}
         <a
           href="#"
@@ -92,6 +95,8 @@ export default function Navbar() {
           onClick={() => setMobileOpen((prev) => !prev)}
           className="inline-flex items-center justify-center rounded-md p-2 text-muted transition-colors hover:text-ink md:hidden"
           aria-label={mobileOpen ? "Close menu" : "Open menu"}
+          aria-expanded={mobileOpen}
+          aria-controls="mobile-menu"
         >
           {mobileOpen ? (
             <XMarkIcon className="h-6 w-6" />
@@ -103,7 +108,7 @@ export default function Navbar() {
 
       {/* Mobile dropdown */}
       {mobileOpen && (
-        <div className="border-t border-line bg-paper md:hidden">
+        <div id="mobile-menu" className="border-t border-line bg-paper md:hidden">
           <ul className="flex flex-col gap-1 px-6 py-4">
             {NAV_LINKS.map(({ label, href, index }) => (
               <li key={href}>

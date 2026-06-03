@@ -319,5 +319,5 @@ export const stats = [
   { label: "Products Built", value: 30 },
   { label: "Client Projects", value: 12 },
   { label: "SaaS Platforms", value: 8 },
-  { label: "Technologies Used", value: 15 },
+  { label: "Technologies Used", value: 16 },
 ];
