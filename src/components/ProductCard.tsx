@@ -5,18 +5,18 @@ import type { Product } from "@/data/products";
 
 /* ── Category display map ── */
 const categoryLabel: Record<string, string> = {
-  saas: "SAAS",
-  client: "CLIENT",
-  tool: "TOOLS",
-  creative: "CREATIVE",
+  saas: "SaaS",
+  client: "Client",
+  tool: "Tool",
+  creative: "Creative",
 };
 
-/* ── Fallback gradient colors for missing screenshots ── */
+/* ── Warm low-saturation duotone fallbacks (screenshot-less cards) ── */
 const fallbackGradients: Record<string, string> = {
-  saas: "from-violet-100 to-indigo-100",
-  client: "from-stone-100 to-zinc-200",
-  tool: "from-emerald-100 to-teal-100",
-  creative: "from-purple-100 to-pink-100",
+  saas: "from-[#e9dfcb] to-[#d6c6a8]",
+  client: "from-[#e4ddce] to-[#cdc4b0]",
+  tool: "from-[#e2e0d1] to-[#cccbb8]",
+  creative: "from-[#ecdfce] to-[#d8c6b1]",
 };
 
 interface ProductCardProps {
@@ -26,7 +26,8 @@ interface ProductCardProps {
 export default function ProductCard({ product }: ProductCardProps) {
   const [imgError, setImgError] = useState(false);
   const screenshotSrc = `/screenshots/${product.slug}.png`;
-  const fallback = fallbackGradients[product.category] || "from-gray-100 to-gray-200";
+  const fallback = fallbackGradients[product.category] || "from-sand to-line";
+  const label = categoryLabel[product.category] ?? product.category;
 
   return (
     <a
@@ -35,37 +36,42 @@ export default function ProductCard({ product }: ProductCardProps) {
       rel="noopener noreferrer"
       className="group block"
     >
-      {/* Screenshot image */}
-      <div className="relative overflow-hidden rounded-xl aspect-[16/10] bg-[#f0f0f0]">
+      {/* Screenshot */}
+      <div className="relative aspect-[16/10] overflow-hidden rounded-md border border-line bg-surface">
         {!imgError ? (
+          // eslint-disable-next-line @next/next/no-img-element
           <img
             src={screenshotSrc}
             alt={`Screenshot of ${product.name}`}
-            className="w-full h-full object-cover object-top transition-transform duration-300 ease-out group-hover:scale-[1.02]"
+            className="h-full w-full object-cover object-top transition-transform duration-500 ease-out group-hover:scale-[1.03]"
             onError={() => setImgError(true)}
           />
         ) : (
           <div
-            className={`w-full h-full bg-gradient-to-br ${fallback} flex flex-col items-center justify-center px-4`}
+            className={`flex h-full w-full flex-col items-center justify-center bg-gradient-to-br px-4 ${fallback}`}
           >
-            <span className="text-lg font-semibold text-[#666] text-center leading-tight">
+            <span className="text-center font-display text-xl leading-tight text-ink/70">
               {product.name}
-            </span>
-            <span className="mt-1 text-[10px] uppercase tracking-widest text-[#aaa]">
-              {categoryLabel[product.category] || product.category.toUpperCase()}
             </span>
           </div>
         )}
+
+        {product.featured && (
+          <span className="absolute left-3 top-3 rounded-full bg-paper/85 px-2 py-0.5 font-mono text-[0.55rem] uppercase tracking-[0.18em] text-muted backdrop-blur-sm">
+            ★ Featured
+          </span>
+        )}
       </div>
 
-      {/* Project name */}
-      <h3 className="mt-3 text-lg font-semibold text-[#1a1a1a]">
-        {product.name}
-      </h3>
-
-      {/* Category tag */}
-      <p className="mt-1 text-xs uppercase tracking-widest text-[#888]">
-        # {categoryLabel[product.category] || product.category.toUpperCase()}
+      {/* Meta */}
+      <div className="mt-4 flex items-baseline justify-between gap-3">
+        <h3 className="font-display text-lg text-ink">{product.name}</h3>
+        <span className="font-mono text-xs text-faint transition-colors group-hover:text-amber">
+          ↗
+        </span>
+      </div>
+      <p className="mt-1 font-mono text-[0.7rem] uppercase tracking-[0.18em] text-muted">
+        {label}
       </p>
     </a>
   );

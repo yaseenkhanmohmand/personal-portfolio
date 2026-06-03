@@ -1,97 +1,118 @@
 @import "tailwindcss";
 
 /* ──────────────────────────────────────────────
-   Theme — Tailwind CSS v4 custom design tokens
-   Light theme inspired by instrument.com
+   Theme — Tailwind CSS v4 design tokens
+   "Editorial Index" — warm paper, ink, molten amber
    ────────────────────────────────────────────── */
 @theme inline {
-  --color-background: #fafafa;
-  --color-foreground: #1a1a1a;
-  --color-muted: #888888;
-  --color-muted-dark: #666666;
-  --color-surface: #ffffff;
-  --color-border: #e5e5e5;
-  --color-border-light: #efefef;
+  /* Surfaces */
+  --color-paper: #f4f1ea; /* page background — warm bone, never cold */
+  --color-sand: #efe7da; /* alternate band background */
+  --color-surface: #fbfaf6; /* cards / hover lifts */
+  --color-ink: #16140f; /* text — warm near-black */
 
+  /* Text tiers */
+  --color-muted: #6b6457;
+  --color-faint: #9a9384;
+
+  /* Hairlines */
+  --color-line: #d9d3c6;
+  --color-line-soft: #e6e1d6;
+
+  /* The single load-bearing accent — used in ~5 places site-wide */
+  --color-amber: #c8521b;
+  --color-amber-deep: #a8400f;
+
+  /* Type */
+  --font-display: var(--font-fraunces), Georgia, "Times New Roman", serif;
   --font-sans: var(--font-inter), system-ui, -apple-system, sans-serif;
-  --font-mono: ui-monospace, "SF Mono", monospace;
+  --font-mono: var(--font-plex-mono), ui-monospace, "SF Mono", monospace;
+}
+
+:root {
+  --nav-h: 5rem;
 }
 
 /* ──────────────────────────────────────────────
-   Base styles
+   Base
    ────────────────────────────────────────────── */
 html {
   scroll-behavior: smooth;
 }
 
 body {
-  background: var(--color-background);
-  color: var(--color-foreground);
+  background: var(--color-paper);
+  color: var(--color-ink);
   font-family: var(--font-sans);
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
+  text-rendering: optimizeLegibility;
 }
 
-/* Selection */
+/* Display face uses optical sizing so it gets the high-contrast
+   "expensive" look at large sizes and stays readable when small. */
+.font-display {
+  font-optical-sizing: auto;
+}
+
+/* Tabular numerals for stats / indices */
+.tnum {
+  font-variant-numeric: tabular-nums;
+}
+
+/* Anchor offset so the fixed nav never covers section tops */
+section[id] {
+  scroll-margin-top: var(--nav-h);
+}
+
+/* Selection — faint amber */
 ::selection {
-  background: rgba(26, 26, 26, 0.12);
-  color: #1a1a1a;
+  background: rgba(200, 82, 27, 0.16);
+  color: #16140f;
 }
-
 ::-moz-selection {
-  background: rgba(26, 26, 26, 0.12);
-  color: #1a1a1a;
+  background: rgba(200, 82, 27, 0.16);
+  color: #16140f;
 }
 
-/* Scrollbar */
+/* Scrollbar — warm to match the paper */
 ::-webkit-scrollbar {
-  width: 6px;
-  height: 6px;
+  width: 8px;
+  height: 8px;
 }
-
 ::-webkit-scrollbar-track {
   background: transparent;
 }
-
 ::-webkit-scrollbar-thumb {
-  background: #d4d4d4;
-  border-radius: 3px;
+  background: #cfc7b7;
+  border-radius: 4px;
 }
-
 ::-webkit-scrollbar-thumb:hover {
-  background: #a3a3a3;
+  background: #b3aa98;
 }
-
 * {
   scrollbar-width: thin;
-  scrollbar-color: #d4d4d4 transparent;
+  scrollbar-color: #cfc7b7 transparent;
 }
 
-/* Focus ring */
+/* Focus ring — amber */
 :focus-visible {
-  outline: 2px solid #1a1a1a;
+  outline: 2px solid var(--color-amber);
   outline-offset: 2px;
 }
 
 /* ──────────────────────────────────────────────
-   Keyframes — subtle only
+   Reduced motion — collapse everything to instant
    ────────────────────────────────────────────── */
-@keyframes fade-in-up {
-  from {
-    opacity: 0;
-    transform: translateY(16px);
+@media (prefers-reduced-motion: reduce) {
+  html {
+    scroll-behavior: auto;
   }
-  to {
-    opacity: 1;
-    transform: translateY(0);
-  }
-}
-
-/* ──────────────────────────────────────────────
-   Utility classes
-   ────────────────────────────────────────────── */
-@layer utilities {
-  .animate-fade-in-up {
-    animation: fade-in-up 0.5s ease-out both;
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.001ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.001ms !important;
   }
 }

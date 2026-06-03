@@ -51,19 +51,26 @@ const socialLinks = [
 ];
 
 /* ──────────────────────────────────────────────
-   Footer component
+   Footer — print-style colophon
    ────────────────────────────────────────────── */
 export default function Footer() {
-  return (
-    <footer className="border-t border-[#e5e5e5]">
-      <div className="max-w-7xl mx-auto px-6 py-8 flex flex-col sm:flex-row items-center justify-between gap-4">
-        {/* Copyright */}
-        <p className="text-[#888] text-sm">
-          &copy; {new Date().getFullYear()} Yaseen Mohmand. All rights reserved.
-        </p>
+  const year = new Date().getFullYear();
 
-        {/* Social Links */}
-        <div className="flex items-center gap-4">
+  return (
+    <footer className="border-t border-line">
+      <div className="mx-auto flex max-w-6xl flex-col gap-6 px-6 py-10 sm:flex-row sm:items-center sm:justify-between">
+        {/* Colophon */}
+        <div className="flex flex-col gap-1">
+          <p className="font-mono text-xs uppercase tracking-[0.18em] text-muted">
+            © {year} Yaseen Khan Mohmand
+          </p>
+          <p className="font-mono text-[0.65rem] uppercase tracking-[0.18em] text-muted">
+            Designed &amp; built by YKM · {year} · v2
+          </p>
+        </div>
+
+        {/* Social */}
+        <div className="flex items-center gap-5">
           {socialLinks.map((link) => (
             <a
               key={link.label}
@@ -71,7 +78,7 @@ export default function Footer() {
               target="_blank"
               rel="noopener noreferrer"
               aria-label={link.label}
-              className="text-[#888] transition-colors duration-200 hover:text-[#1a1a1a]"
+              className="text-muted transition-colors duration-200 hover:text-amber"
             >
               {link.icon}
             </a>

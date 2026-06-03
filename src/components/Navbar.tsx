@@ -4,9 +4,9 @@ import { useState, useEffect } from "react";
 import { Bars3Icon, XMarkIcon } from "@heroicons/react/24/outline";
 
 const NAV_LINKS = [
-  { label: "Work", href: "#projects" },
-  { label: "About", href: "#about" },
-  { label: "Contact", href: "#contact" },
+  { label: "Work", href: "#projects", index: "01" },
+  { label: "About", href: "#about", index: "02" },
+  { label: "Contact", href: "#contact", index: "03" },
 ] as const;
 
 export default function Navbar() {
@@ -46,13 +46,13 @@ export default function Navbar() {
 
   return (
     <header
-      className={`fixed top-0 left-0 right-0 z-50 transition-all duration-300 ${
+      className={`fixed inset-x-0 top-0 z-50 transition-all duration-300 ${
         scrolled
-          ? "bg-white/90 backdrop-blur-sm border-b border-[#e5e5e5]"
-          : "bg-transparent"
+          ? "border-b border-line bg-paper/80 backdrop-blur-md"
+          : "border-b border-transparent bg-transparent"
       }`}
     >
-      <nav className="mx-auto flex max-w-7xl items-center justify-between px-6 py-5">
+      <nav className="mx-auto flex h-20 max-w-6xl items-center justify-between px-6">
         {/* Logo */}
         <a
           href="#"
@@ -60,14 +60,14 @@ export default function Navbar() {
             e.preventDefault();
             window.scrollTo({ top: 0, behavior: "smooth" });
           }}
-          className="text-lg font-semibold tracking-tight text-[#1a1a1a] transition-opacity hover:opacity-60"
+          className="font-display text-lg font-medium tracking-tight text-ink transition-colors hover:text-amber"
         >
           Yaseen Khan Mohmand
         </a>
 
         {/* Desktop links */}
-        <ul className="hidden gap-8 md:flex">
-          {NAV_LINKS.map(({ label, href }) => (
+        <ul className="hidden items-center gap-8 md:flex">
+          {NAV_LINKS.map(({ label, href, index }) => (
             <li key={href}>
               <a
                 href={href}
@@ -75,8 +75,11 @@ export default function Navbar() {
                   e.preventDefault();
                   handleNavClick(href);
                 }}
-                className="text-sm text-[#888] transition-colors hover:text-[#1a1a1a]"
+                className="group flex items-baseline gap-1.5 font-mono text-xs uppercase tracking-widest text-muted transition-colors hover:text-ink"
               >
+                <span className="text-[0.625rem] text-faint transition-colors group-hover:text-amber">
+                  {index}
+                </span>
                 {label}
               </a>
             </li>
@@ -87,7 +90,7 @@ export default function Navbar() {
         <button
           type="button"
           onClick={() => setMobileOpen((prev) => !prev)}
-          className="inline-flex items-center justify-center rounded-md p-2 text-[#888] transition-colors hover:text-[#1a1a1a] md:hidden"
+          className="inline-flex items-center justify-center rounded-md p-2 text-muted transition-colors hover:text-ink md:hidden"
           aria-label={mobileOpen ? "Close menu" : "Open menu"}
         >
           {mobileOpen ? (
@@ -100,9 +103,9 @@ export default function Navbar() {
 
       {/* Mobile dropdown */}
       {mobileOpen && (
-        <div className="border-t border-[#e5e5e5] bg-white md:hidden">
+        <div className="border-t border-line bg-paper md:hidden">
           <ul className="flex flex-col gap-1 px-6 py-4">
-            {NAV_LINKS.map(({ label, href }) => (
+            {NAV_LINKS.map(({ label, href, index }) => (
               <li key={href}>
                 <a
                   href={href}
@@ -110,8 +113,9 @@ export default function Navbar() {
                     e.preventDefault();
                     handleNavClick(href);
                   }}
-                  className="block rounded-md px-3 py-2 text-sm text-[#888] transition-colors hover:text-[#1a1a1a]"
+                  className="flex items-baseline gap-2 rounded-md px-3 py-3 font-mono text-sm uppercase tracking-widest text-muted transition-colors hover:text-ink"
                 >
+                  <span className="text-xs text-faint">{index}</span>
                   {label}
                 </a>
               </li>

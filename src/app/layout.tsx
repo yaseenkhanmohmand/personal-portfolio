@@ -1,10 +1,28 @@
 import type { Metadata } from "next";
-import { Inter } from "next/font/google";
+import { Fraunces, Inter, IBM_Plex_Mono } from "next/font/google";
 import "./globals.css";
 
+/* Display — the "expensive" editorial serif (variable, optical sizing) */
+const fraunces = Fraunces({
+  variable: "--font-fraunces",
+  subsets: ["latin"],
+  display: "swap",
+  axes: ["opsz"],
+});
+
+/* Body / UI — clean, neutral, already proven in this project */
 const inter = Inter({
   variable: "--font-inter",
   subsets: ["latin"],
+  display: "swap",
+});
+
+/* Mono — the engineering undertone: eyebrows, indices, tags */
+const plexMono = IBM_Plex_Mono({
+  variable: "--font-plex-mono",
+  subsets: ["latin"],
+  weight: ["400", "500"],
+  display: "swap",
 });
 
 export const metadata: Metadata = {
@@ -34,9 +52,17 @@ export default function RootLayout({
   return (
     <html lang="en" className="scroll-smooth">
       <body
-        className={`${inter.variable} bg-[#fafafa] text-[#1a1a1a] min-h-screen antialiased`}
+        className={`${inter.variable} ${fraunces.variable} ${plexMono.variable} font-sans bg-paper text-ink min-h-screen antialiased`}
       >
-        {children}
+        {/* Editorial grid spine — faint vertical rules framing the content column */}
+        <div
+          aria-hidden
+          className="pointer-events-none fixed inset-0 z-0 flex justify-center"
+        >
+          <div className="h-full w-full max-w-6xl border-x border-line-soft" />
+        </div>
+
+        <div className="relative z-10">{children}</div>
       </body>
     </html>
   );
